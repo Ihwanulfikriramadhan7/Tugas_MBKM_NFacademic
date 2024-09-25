@@ -1,0 +1,21 @@
+body {
+   background-color: burlywood;
+  }
+.indra{
+    margin: auto;
+}
+form {
+    position: relative;
+    top: 100px;
+    left: 400px;
+    
+}
+table{
+    background-color: white;
+}
+.kirim{
+    background-color: springgreen;
+}
+.batal{
+    background-color: darkred;
+}
