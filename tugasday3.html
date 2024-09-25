@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="pino.css">
+</head>
+<body>
+    <form action="">
+
+        <table>
+                <!-- data pribadi -->
+                    <tr>
+                        <td> <label for="nama"> Nama Lengkap </label></td>
+                            <td><input type="text" name="nama" id="nama" required placeholder="Isi Nama lengkap anda" minlength="3"></td>
+                        <td rowspan="8"><img src="fikri.jpg" alt="" height="250" width="200"></td>
+                    </tr>
+
+                <!-- email -->
+                    <tr>
+                        <td><label for="email"> Email</label></td>
+                            <td><input type="email" name="email" id="email" required placeholder="Masukan Email"></td>
+                    </tr>
+
+                <!-- Password -->
+                    <tr>
+                        <td><label for="password">Password</label></td>
+                            <td><input type="password" name="password" id="password" required></td>
+                    </tr>
+
+                <!-- Tanggal Lahir -->
+                    <tr>
+                        <td><label for="date">Tanggal Lahir</label></td>
+                            <td><input type="date" name="date" id="date" required></td>
+                    </tr>
+
+                <!-- Umur -->
+                    <tr>
+                        <td><label for="umur"> Umur </label></td>
+                            <td><input type="number" name="umur" id="Umur" required min="18" max="50"></td>
+                    </tr>
+
+                <!-- Jenis Kelamin -->
+                    <tr>
+                        <td></td>
+                        <td><label for="male"><input type="radio" name="gande" id="male" required> Laki-Laki</label>
+                            <label for="female"><input type="radio" name="gande" id="female" required>Perempuan</label>
+                        </td>
+                    </tr>
+
+                <!-- Nomor hp -->
+                    <tr>
+                        <td><label for="number" > Nomor Hp</label></td>
+                        <td><input type="tel" name="number" id="number" required placeholder="08**********"></td>
+                    </tr>
+
+                <!-- unggah Foto -->
+                 <tr>
+                    <td></td>
+                    <td><input type="file" name="foto" required></td>
+                 </tr>
+                <!-- persetujuan syarat dan ketentuan -->
+                    <tr>
+                    <td></td> 
+                        <td><label for="tarms"><input type="checkbox" name="tarms" id="tarms" required>Setuju</label></td>
+                    </tr>
+                <!-- button -->
+                 <tr>
+                    <td></td>
+                 </tr>
+
+        </table>
+                    <button type="submit" class="kirim"> Kirim </button>
+                    <button type="reset" class="batal"> Batal </button>
+
+
+                
+
+    </form>
+
+
+
+
+
+</body>
+</html>
