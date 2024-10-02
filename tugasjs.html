@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tugas java script</title>
+    <link rel="stylesheet" href="styke.css">
+</head>
+<body>
+<div class="row">
+    <header>
+        <h1>Menentukan Nilai Sisi Dan Jari-Jari</h1>
+        <marquee behavior="" direction=""><h3>Mudah-Mudah benar</h3></marquee>
+
+    </header>
+    <nav>
+        <script>
+        function sisi(sisia, sisib) {
+            let hasilc = sisia * sisib;
+            return hasilc;//ini adalah pengambilan nilai
+        }
+        let sisia = 30;
+        let sisib = 70;
+        document.write(`Sisi ${sisia} x ${sisib} = ${sisi(sisia, sisib)} <br/>`);
+
+        //fungsi arrow
+        let jarijarix = 50;
+        let jarijariy = 70;
+            const hitungLuasPersegiPanah = (jarijarix, jarijariy) => jarijarix * jarijariy;
+        document.write(`Jari-Jari ${jarijarix} x ${jarijariy} = ${hitungLuasPersegiPanah(jarijarix, jarijariy)}`);
+
+        </script>
+    </nav>
+</div>
+</body>
+</html>
