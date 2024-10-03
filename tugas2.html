@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      function hitungGajiBersih(golongan, statusMenikah) {
+  let gajiPokok = 0;
+  let tunjangan = 0;
+
+  // Pendekatan 1: Menggunakan if-else
+  if (golongan === 1) {
+    gajiPokok = 10000000;
+  } else if (golongan === 2) {
+    gajiPokok = 15000000;
+    if (statusMenikah) {
+      tunjangan = 2000000;
+    }
+  } else if (golongan === 3) {
+    gajiPokok = 20000000;
+  } else {
+    return "Golongan tidak valid.";
+  }
+
+  // Pendekatan 2: Menggunakan switch case
+  switch (golongan) {
+    case 1:
+      gajiPokok = 10000000;
+      break;
+    case 2:
+      gajiPokok = 15000000;
+      if (statusMenikah) {
+        tunjangan = 2000000;
+      }
+      break;
+    case 3:
+      gajiPokok = 20000000;
+      break;
+    default:
+      return "Golongan tidak valid.";
+  }
+
+  const gajiBersih = gajiPokok + tunjangan;
+  return gajiBersih;
+}
+
+// Contoh penggunaan
+const golonganPegawai = 2;
+const statusMenikahPegawai = true;
+
+const gajiBersihPegawai = hitungGajiBersih(golonganPegawai, statusMenikahPegawai);
+document.write("Gaji bersih pegawai:", gajiBersihPegawai);
+    </script>
+</body>
+</html>
