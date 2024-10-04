@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Define the initial data
+let s1 = {'nama': 'Ali', 'Nilai': 80};
+let s2 = {'nama': 'Budi', 'Nilai': 90};
+let s3 = {'nama': 'Cici', 'Nilai': 70};
+let s4 = {'nama': 'Dedi', 'Nilai': 85};
+let s5 = {'nama': 'Eva', 'Nilai': 40};
+
+// Create an array to store the data
+let siswa = [s1, s2, s3, s4, s5];
+
+// Function to determine the grade and predikat
+function getGrade(nilai) {
+  if (nilai >= 85 && nilai <= 100) return 'A';
+  else if (nilai >= 75 && nilai <= 84) return 'B';
+  else if (nilai >= 60 && nilai <= 74) return 'C';
+  else if (nilai >= 30 && nilai <= 59) return 'D';
+  else return 'E';
+}
+
+function getPredikat(nilai) {
+  return nilai > 60 ? 'Lulus' : 'Tidak Lulus';
+}
+
+// Create the table
+let table = '<table border="1" style="border: 3px solid seagreen; color: white; background-color: green; text-align: center">';
+table += '<tr style="border: 3px solid seagreen; color: white; background-color: red;"><th>No</th><th>Nama</th><th>Nilai</th><th>Keterangan</th><th>Grade</th><th>Predikat</th></tr>';
+
+// Loop through the data and create table rows
+siswa.forEach((siswa, index) => {
+  let nilai = siswa.Nilai;
+  let grade = getGrade(nilai);
+  let predikat = getPredikat(nilai);
+  table += `<tr><td>${index + 1}</td><td>${siswa.nama}</td><td>${nilai}</td><td>${nilai}</td><td>${grade}</td><td>${predikat}</td></tr>`;
+});
+
+table += '</table>';
+
+// Output the table
+document.body.innerHTML = table;
+    </script>
+</body>
+</html>
