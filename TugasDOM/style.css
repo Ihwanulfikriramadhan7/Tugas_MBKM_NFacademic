@@ -1,0 +1,219 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    padding: 20px;
+    margin: 20PX;
+}
+h1{
+    text-align: center;
+    border: 3px solid gold;
+    padding: 10px;
+}
+
+/* header */
+.indah{
+    background-color: rgb(223, 15, 15);
+    margin: 0px 0px ;
+    padding: 60px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+
+/* nav */
+.cantik{
+    background-color: aqua;
+    margin: 0px 0;
+    padding: 60px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: rgb(0, 0, 0);
+}
+.container{
+    display: flex;
+    justify-content: space-between; /* Elemen akan tersebar merata dengan jarak di antara mereka */
+    align-items: center; /* Elemen akan berada di tengah secara vertikal */
+}
+
+/* footer */
+.dengki{
+    background-color: rgb(104, 7, 7);
+    margin: 0px 0;
+    padding: 60px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+
+.sabi{
+    background-color: aqua;
+    margin: 0px 0;
+    padding: 350px 0;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: rgb(0, 0, 0);
+}
+
+.ini{
+    background-color: rgb(255, 196, 0);
+    margin: 0px 0;
+    padding: 350px 100px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+.itu{
+    background-color: rgb(255, 0, 170);
+    margin: 0px 0;
+    padding: 350px 0px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+
+/* button */
+.induk1{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}   
+.induk2{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+.induk3{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+.induk4{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 325px;
+}
+.induk5{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+.induk6{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+
+
+/* baru */
+.singa{
+    background-color: rgb(195, 207, 22);
+    margin: 0px 0px ;
+    padding: 60px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+.macan{
+    background-color: rgb(98, 207, 8);
+    margin: 0px 0;
+    padding: 60px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: rgb(0, 0, 0);
+}
+.harimau{
+    background-color: rgb(177, 4, 230);
+    margin: 0px 0;
+    padding: 350px 0;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: rgb(0, 0, 0);
+}
+
+.cita{
+    background-color: rgb(185, 7, 96);
+    margin: 0px 0;
+    padding: 350px 100px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+.kucing{
+    background-color: rgb(13, 78, 27);
+    margin: 0px 0;
+    padding: 350px 0px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+.serigala{
+    background-color: rgb(6, 82, 78);
+    margin: 0px 0;
+    padding: 60px;
+    border: 1px solid rgb(0, 0, 97);
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+
+/* button */
+.ikan{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}   
+.rusa{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+.kambing{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+.domba{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 325px;
+}
+.sapi{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+.landak{
+    background-color: springgreen;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+
+marquee{
+    border: 2px solid rgb(61, 146, 22);
+    background-color: rgb(10, 90, 79);
+    color: white;
+}
