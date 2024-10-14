@@ -1,0 +1,74 @@
+Microsoft Windows [Version 10.0.22631.4317]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\ihwan>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE tugasmysql;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> USE tugasmysql;
+Database changed
+
+MariaDB [tugasmysql]> CREATE TABLE produk(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> nama VARCHAR(100) NOT NULL,
+    -> harga DECIMAL(20,5) NOT NULL);
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [tugasmysql]> INSERT INTO produk (nama, harga) VALUES
+    ->     ('MINYAK GORENG', 400000),
+    ->     ('TAHU', 50000),
+    ->     ('INDOMI', 500000),
+    ->     ('TEPUNG', 200000),
+    ->     ('TEMPE', 200000);
+Query OK, 5 rows affected (0.076 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [tugasmysql]> CREATE TABLE vendor(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> nama VARCHAR(100) NOT NULL,
+    -> kode VARCHAR(50) NOT NULL,
+    -> alamat TEXT,
+    -> kontak VARCHAR(100));
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [tugasmysql]> INSERT INTO vendor (nama, kode, alamat, kontak) VALUES
+    -> ('Toko Minyak', 'TBC001', 'Jl. Pemuda No. 123', '08123456789'),
+    -> ('Toko Sayuran', 'TBC002', 'Jl. Indah No. 234', '08123456980'),
+    -> ('Toko Makanan INSTAN', 'TBC003', 'Jl. Indra No. 456', '081238790
+80'),
+    -> ('Toko Sembako', 'TBC003', 'Jl. Agus No. 322', '08123479005'),
+    -> ('Toko Sayuran', 'TBC004', 'Jl. Indah No. 234', '08123456980');
+Query OK, 5 rows affected (0.007 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [tugasmysql]> CREATE TABLE pembelian (
+    ->   id INT PRIMARY KEY AUTO_INCREMENT,
+    ->   tanggal DATE NOT NULL,
+    ->   nomor VARCHAR(50) NOT NULL,
+    ->   produk_id INT NOT NULL,
+    ->   jumlah INT NOT NULL,
+    ->   harga DECIMAL(10,2) NOT NULL,
+    ->   vendor_id INT NOT NULL,
+    ->   FOREIGN KEY (produk_id) REFERENCES produk(id),
+    ->   FOREIGN KEY (vendor_id) REFERENCES vendor(id)
+    -> );
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [tugasmysql]> INSERT INTO pembelian (tanggal, nomor, produk_id, jumlah, harga, vendor_id)
+    -> VALUES
+    ->   ('2023-11-20', 'INV-001', 1, 2, 400000, 1),
+    ->   ('2023-11-21', 'INV-002', 2, 1, 50000, 2),
+    ->   ('2023-11-22', 'INV-003', 3, 5, 500000, 3),
+    ->   ('2023-11-23', 'INV-004', 4, 10, 200000, 4),
+    ->   ('2023-11-24', 'INV-005', 5, 3, 200000, 5);
+Query OK, 5 rows affected (0.008 sec)
+Records: 5  Duplicates: 0  Warnings: 0
