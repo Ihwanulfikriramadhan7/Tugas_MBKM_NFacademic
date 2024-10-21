@@ -1,0 +1,100 @@
+sandi MySQL workbench:728856Fikri*00
+Data Bases Perusahaan ABC 
+
+MariaDB [pelatihan]> CREATE TABLE Pelatihan (
+    ->   id_pelatihan INT PRIMARY KEY,
+    ->   nama_pelatihan VARCHAR(255) NOT NULL,
+    ->   tanggal_mulai DATE NOT NULL,
+    ->   tanggal_selesai DATE NOT NULL,
+    ->   deskripsi TEXT
+    -> );
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [pelatihan]> DESC Pelatihan;
++-----------------+--------------+------+-----+---------+-------+ 
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| id_pelatihan    | int(11)      | NO   | PRI | NULL    |       |
+| nama_pelatihan  | varchar(255) | NO   |     | NULL    |       |
+| tanggal_mulai   | date         | NO   |     | NULL    |       |
+| tanggal_selesai | date         | NO   |     | NULL    |       |
+| deskripsi       | text         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+5 rows in set (0.019 sec)
+
+
+MariaDB [pelatihan]> CREATE TABLE Nara (
+    ->   id_nara INT PRIMARY KEY,
+    ->   nama_nara VARCHAR(255) NOT NULL,
+    ->   sumber_materi VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [pelatihan]> DESC Nara;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| id_nara       | int(11)      | NO   | PRI | NULL    |       |
+| nama_nara     | varchar(255) | NO   |     | NULL    |       |
+| sumber_materi | varchar(255) | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+3 rows in set (0.014 sec)
+
+MariaDB [pelatihan]> CREATE TABLE Peserta (
+    ->   id_peserta INT PRIMARY KEY,
+    ->   nama_peserta VARCHAR(255) NOT NULL,
+    ->   email VARCHAR(255) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [pelatihan]> DESC Peserta;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id_peserta   | int(11)      | NO   | PRI | NULL    |       |
+| nama_peserta | varchar(255) | NO   |     | NULL    |       |
+| email        | varchar(255) | NO   |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+3 rows in set (0.016 sec)
+
+MariaDB [pelatihan]> CREATE TABLE Pendaftaran (
+    ->   id_pendaftaran INT PRIMARY KEY,
+    ->   id_pelatihan INT NOT NULL,
+    ->   id_peserta INT NOT NULL,
+    ->   tanggal_daftar DATE NOT NULL,
+    ->   FOREIGN KEY (id_pelatihan) REFERENCES Pelatihan(id_pelatihan),
+    ->   FOREIGN KEY (id_peserta) REFERENCES Peserta(id_peserta)
+    -> );
+Query OK, 0 rows affected (0.036 sec)
+
+MariaDB [pelatihan]> DESC Pendaftaran;
++----------------+---------+------+-----+---------+-------+
+| Field          | Type    | Null | Key | Default | Extra |
++----------------+---------+------+-----+---------+-------+
+| id_pendaftaran | int(11) | NO   | PRI | NULL    |       |
+| id_pelatihan   | int(11) | NO   | MUL | NULL    |       |
+| id_peserta     | int(11) | NO   | MUL | NULL    |       |
+| tanggal_daftar | date    | NO   |     | NULL    |       |
++----------------+---------+------+-----+---------+-------+
+4 rows in set (0.016 sec)
+
+MariaDB [pelatihan]> CREATE TABLE Presensi (
+    ->   id_presensi INT PRIMARY KEY,
+    ->   id_pelatihan INT NOT NULL,
+    ->   id_peserta INT NOT NULL,
+    ->   tanggal_hadir DATE NOT NULL,
+    ->   FOREIGN KEY (id_pelatihan) REFERENCES Pelatihan(id_pelatihan),
+    ->   FOREIGN KEY (id_peserta) REFERENCES Peserta(id_peserta)
+    -> );
+Query OK, 0 rows affected (0.041 sec)
+
+MariaDB [pelatihan]> DESC Presensi;
++---------------+---------+------+-----+---------+-------+
+| Field         | Type    | Null | Key | Default | Extra |
++---------------+---------+------+-----+---------+-------+
+| id_presensi   | int(11) | NO   | PRI | NULL    |       |
+| id_pelatihan  | int(11) | NO   | MUL | NULL    |       |
+| id_peserta    | int(11) | NO   | MUL | NULL    |       |
+| tanggal_hadir | date    | NO   |     | NULL    |       |
++---------------+---------+------+-----+---------+-------+
+4 rows in set (0.014 sec)
