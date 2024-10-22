@@ -1,0 +1,130 @@
+MariaDB [dbpossi02]> DELIMITER $$
+MariaDB [dbpossi02]> CREATE PROCEDURE pro_naikan_harga(
+    ->     IN jenis_produk_id INT,
+    ->     IN persentase_kenaikan INT
+    -> )
+    -> BEGIN
+    ->     UPDATE produk
+    ->     SET harga_jual = harga_jual + (harga_jual * persentase_kenaikan / 100)
+    ->     WHERE jenis_produk_id = jenis_produk_id;
+    -> END $$
+Query OK, 0 rows affected (0.015 sec)
+MariaDB [dbpossi02]> DELIMITER ;
+
+MariaDB [dbpossi02]> CALL pro_naikan_harga(1, 10);
+Query OK, 9 rows affected (0.023 sec)
+
+MariaDB [dbpossi02]> DELIMITER $$
+MariaDB [dbpossi02]> CREATE FUNCTION hitung_umur(tanggal_lahir DATE)
+    -> RETURNS INT
+    -> BEGIN
+    ->     DECLARE umur INT;
+    ->     SET umur = YEAR(CURDATE()) - YEAR(tanggal_lahir);
+    ->     -- Penyesuaian jika belum ulang tahun di tahun ini
+    ->     IF MONTH(CURDATE()) < MONTH(tanggal_lahir) OR
+    ->        (MONTH(CURDATE()) = MONTH(tanggal_lahir) AND DAY(CURDATE()) < DAY(tanggal_lahir)) THEN
+    ->         SET umur = umur - 1;
+    ->     END IF;
+    ->     RETURN umur;
+    -> END $$
+Query OK, 0 rows affected (0.013 sec)
+
+MariaDB [dbpossi02]> DELIMITER ;
+MariaDB [dbpossi02]> SELECT hitung_umur('1995-12-25') AS umur;
++------+
+| umur |
++------+
+|   28 |
++------+
+1 row in set (0.001 sec)
+
+MariaDB [dbpossi02]> SELECT nama, hitung_umur(tgl_lahir) AS umur
+    -> FROM pelanggan;
++---------------+------+
+| nama          | umur |
++---------------+------+
+| Agung Sedayu  |   14 |
+| Pandan Wangi  |   74 |
+| Sekar Mirah   |   41 |
+| Swandaru Geni |   43 |
+| Pradabashu    |   39 |
+| Gayatri Dwi   |   36 |
+| Dewi Gyat     |   35 |
+| Andre Haru    |   34 |
+| Ahmad Hasan   |   32 |
+| Cassanndra    |   33 |
++---------------+------+
+10 rows in set (0.001 sec)
+
+
+MariaDB [dbpossi02]> DELIMITER $$
+MariaDB [dbpossi02]> CREATE FUNCTION kategori_harga2(harga DOUBLE)
+    -> RETURNS VARCHAR(20)
+    -> BEGIN
+    ->     DECLARE kategori VARCHAR(20);
+    ->     CASE
+    ->         WHEN harga <= 500000 THEN
+    ->             SET kategori = 'Murah';
+    ->         WHEN harga > 500000 AND harga <= 3000000 THEN
+    ->             SET kategori = 'Sedang';
+    ->         WHEN harga > 3000000 AND harga <= 10000000 THEN
+    ->             SET kategori = 'Mahal';
+    ->         ELSE
+    ->             SET kategori = 'Sangat Mahal';
+    ->     END CASE;
+    ->     RETURN kategori;
+    ->
+    -> END $$
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [dbpossi02]> DELIMITER ;
+
+MariaDB [dbpossi02]> SELECT nama, harga_jual, kategori_harga2(harga_jual) AS kategori
+    -> FROM produk;
++------------------+------------+--------------+
+| nama             | harga_jual | kategori     |
++------------------+------------+--------------+
+| Televisi 21 inch |    5765760 | Mahal        |
+| Televisi 40 inch |    8511360 | Mahal        |
+| Kulkas 2 pintu   |    5353920 | Mahal        |
+| Meja Makan       |     726000 | Sedang       |
+| Teh Kotak        |     4658.5 | Murah        |
+| PC Desktop HP    |   10560000 | Sangat Mahal |
+| Teh Botol        |     3327.5 | Murah        |
+| Notebook Acer    |   11880000 | Sangat Mahal |
+| Notebook Lenovo  |   13200000 | Sangat Mahal |
++------------------+------------+--------------+
+9 rows in set (0.001 sec)
+
+MariaDB [dbpossi02]> START TRANSACTION;
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [dbpossi02]> INSERT INTO produk (nama, harga_jual, stok, jenis_produk_id) VALUES
+    ->
+    -> ('TV Lenovo 24IN', 20000000, 5, 1),
+    ->
+    -> ('PC Geming', 15000000, 10, 5),
+    ->
+    -> ('PS 5', 15000000, 8, 3);
+Query OK, 3 rows affected (0.004 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [dbpossi02]> UPDATE produk SET stok = stok + 5 WHERE id = 1;
+Query OK, 0 rows affected (0.001 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+MariaDB [dbpossi02]> SAVEPOINT titik_simpan;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [dbpossi02]> DELETE FROM pembayaran WHERE id = 10;
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [dbpossi02]> ROLLBACK TO SAVEPOINT titik_simpan;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [dbpossi02]> UPDATE kartu SET iuran = iuran + 10000 WHERE id = '7';
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [dbpossi02]> COMMIT;
+Query OK, 0 rows affected (0.005 sec)
