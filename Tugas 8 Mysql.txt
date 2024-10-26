@@ -1,0 +1,141 @@
+MariaDB [dbtugas_sql]> DELIMITER $$
+MariaDB [dbtugas_sql]> CREATE TRIGGER update_pesanan_status
+    ->  AFTER INSERT ON pembayaran
+    ->FOR EACH ROW
+    ->BEGIN
+    ->UPDATE pesanan
+    ->SET status = 'paid'
+    -> WHERE pesanan_id = NEW.pesanan_id;
+    -> END $$
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [dbtugas_sql]> DELIMITER ;
+
+MariaDB [dbtugas_sql]> INSERT INTO pesanan (id, tanggal, total, pelanggan_id) VALUES (15, '2023-09-30', 50000, 1);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [dbtugas_sql]> ALTER TABLE pesanan ADD COLUMN status VARCHAR(20);
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dbtugas_sql]> SELECT * FROM pesanan;
++----+------------+---------+--------------+--------+
+| id | tanggal    | total   | pelanggan_id | status |
++----+------------+---------+--------------+--------+
+|  1 | 2015-11-04 | 9720000 |            1 | NULL   |
+|  2 | 2015-11-04 |   17500 |            3 | NULL   |
+|  3 | 2015-11-04 |       0 |            6 | NULL   |
+|  4 | 2015-11-04 |       0 |            7 | NULL   |
+|  5 | 2015-11-04 |       0 |           10 | NULL   |
+|  6 | 2015-11-04 |   60000 |            2 | NULL   |
+|  7 | 2015-11-04 |       0 |            5 | NULL   |
+|  8 | 2015-11-04 |       0 |            4 | NULL   |
+|  9 | 2015-11-04 |       0 |            8 | NULL   |
+| 10 | 2015-11-04 |       0 |            9 | NULL   |
+| 11 | 2021-05-31 | 1200000 |            3 | NULL   |
+| 13 | 2023-08-06 |      40 |            1 | NULL   |
+| 14 | 2023-01-01 |   20000 |            2 | NULL   |
+| 15 | 2023-09-30 |   50000 |            1 | NULL   |
++----+------------+---------+--------------+--------+
+14 rows in set (0.001 sec)
+
+
+MariaDB [dbtugas_sql]>  CREATE TRIGGER after_pembayaran
+    -> AFTER INSERT ON pembayaran
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     UPDATE pembayaran
+    ->     SET status_pembayaran = 'Lunas'
+    ->     WHERE id = NEW.id;
+    ->     UPDATE pesanan
+    ->     SET status = 'paid'
+    ->     WHERE id = NEW.pesanan_id;
+    -> END $$
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [dbtugas_sql]> INSERT INTO kartu (nama) VALUES ('Silver');
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [dbtugas_sql]> SELECT id FROM kartu WHERE nama = 'Silver';
++----+
+| id |
++----+
+|  3 |
+|  8 |
++----+
+2 rows in set (0.001 sec)
+
+MariaDB [dbtugas_sql]> INSERT INTO pelanggan (nama, kartu_id) VALUES ('John Doe', 1);
+Query OK, 1 row affected (0.004 sec)
+MariaDB [dbtugas_sql]> SELECT * FROM pelanggan;
++----+------+---------------+------+------------+------------+----------------------+----------+
+| id | kode | nama          | jk   | tmp_lahir  | tgl_lahir  | email                | kartu_id |
++----+------+---------------+------+------------+------------+----------------------+----------+
+|  1 | C001 | Agung Sedayu  | L    | Solo       | 2010-01-01 | sedayu@gmail.com     |        1 |
+|  2 | C002 | Pandan Wangi  | P    | Yogyakarta | 1950-01-01 | wangi@gmail.com      |        2 |
+|  3 | C003 | Sekar Mirah   | P    | Kediri     | 1983-02-20 | mirah@yahoo.com      |        1 |
+|  4 | C004 | Swandaru Geni | L    | Kediri     | 1981-01-04 | swandaru@yahoo.com   |        4 |
+|  5 | C005 | Pradabashu    | L    | Pati       | 1985-04-02 | prada85@gmail.com    |        2 |
+|  6 | C006 | Gayatri Dwi   | P    | Jakarta    | 1987-11-28 | gaya87@gmail.com     |        1 |
+|  7 | C007 | Dewi Gyat     | P    | Jakarta    | 1988-12-01 | giyat@gmail.com      |        1 |
+|  8 | C008 | Andre Haru    | L    | Surabaya   | 1990-07-15 | andre.haru@gmail.com |        4 |
+|  9 | C009 | Ahmad Hasan   | L    | Surabaya   | 1992-10-15 | ahasan@gmail.com     |        4 |
+| 10 | C010 | Cassanndra    | P    | Belfast    | 1990-11-20 | casa90@gmail.com     |        1 |
+| 13 | NULL | John Doe      | NULL | NULL       | NULL       | NULL                 |        1 |
++----+------+---------------+------+------------+------------+----------------------+----------+
+11 rows in set (0.001 sec) 
+
+MariaDB [dbtugas_sql]> SELECT * FROM pembayaran;
++----+------------+------------+----------+------+------------+-------------------+
+| id | nokuitansi | tanggal    | jumlah   | ke   | pesanan_id | status_pembayaran |
++----+------------+------------+----------+------+------------+-------------------+
+|  1 | M001       | 2023-05-12 | 10000000 |    1 |          1 | belum lunas       |
+|  2 | M002       | 2023-06-12 |    18000 |    1 |          2 | belum lunas       |
+|  4 | M0011      | 2023-06-12 |    19000 |    1 |          2 | Lunas             |
+|  5 | M0012      | 2023-06-12 |    19000 |    1 |         11 | NULL              |
+|  6 | M0013      | 2023-06-12 |  1900000 |    1 |         11 | Lunas             |
+|  7 | M0014      | 2023-06-12 |     1900 |    1 |         11 | Lunas             |
+|  8 | M0015      | 2023-06-12 |       20 |    1 |         13 | NULL              |
+|  9 | M0016      | 0000-00-00 |    10000 |    1 |         14 | NULL              |
++----+------------+------------+----------+------+------------+-------------------+
+8 rows in set (0.002 sec)	
+
+MariaDB [dbtugas_sql]> CREATE PROCEDURE kurangi_stok(
+    ->     IN  pelanggan_id_produk INT,
+    ->     IN  pelanggan_jumlah INT
+    -> )
+    -> BEGIN
+    ->     DECLARE current_stok INT;
+    ->     SELECT stok INTO current_stok
+    ->     FROM produk
+    ->     WHERE id = pelanggan_id_produk;
+    ->
+    ->     IF current_stok IS NULL THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Produk tidak ditemukan';
+    ->     ELSEIF current_stok < pelanggan_jumlah THEN
+    ->         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stok tidak cukup';
+    ->     ELSE
+    ->         -- Kurangi stok
+    ->         UPDATE produk
+    ->         SET stok = stok - pelanggan_jumlah
+    ->         WHERE id =  pelanggan_id_produk;
+    ->     END IF;
+    -> END $$
+Query OK, 0 rows affected (0.014 sec)
+
+MariaDB [dbtugas_sql]> DELIMITER ;
+MariaDB [dbtugas_sql]> SHOW PROCEDURE STATUS WHERE Name = 'kurangi_stok';
++-------------+--------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db          | Name         | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++-------------+--------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| dbtugas_sql | kurangi_stok | PROCEDURE | root@localhost | 2024-10-26 22:35:57 | 2024-10-26 22:35:57 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_general_ci |
++-------------+--------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+1 row in set (0.019 sec)
+
+MariaDB [dbtugas_sql]> CREATE TRIGGER kurangi_stok
+    -> AFTER INSERT ON pesanan_items
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     CALL kurangi_stok(NEW.produk_id, NEW.qty);
+    -> END $$
+Query OK, 0 rows affected (0.013 sec)
